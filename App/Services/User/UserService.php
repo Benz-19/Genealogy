@@ -18,7 +18,32 @@ class UserService implements UserServiceInterface{
         $query = "SELECT id FROM genealogy_users WHERE email = :email LIMIT 1";
         $result = $this->db->fetchSingleData($query, [':email' => $email]);
 
-        return $result !== null;
+        if($result !== null){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function userId(string $email)
+    {
+        try{
+            $query = "SELECT id FROM genealogy_users WHERE email=:e LIMIT 1";
+            $params = [":e" => $email];
+
+            $id = $this->db->fetchSingleData($query, $params);
+
+            if(!empty($id) && $id !== null){
+                return $id;
+            }else{
+                error_log("Error: Failed to get user id at UserService::userId");
+                throw new Exception("User not found!");
+                }
+                
+        }catch(Exception $error){
+            error_log("Error: Failed to get user id at UserService::userId");
+            throw $error;
+        }
     }
 
     public function getTopPerformers(int $limit): array

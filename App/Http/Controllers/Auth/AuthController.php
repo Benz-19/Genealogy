@@ -3,14 +3,17 @@ namespace App\Http\Controllers\Auth;
 
 use App\Services\Auth\AuthService;
 use App\Core\BaseController;
+use App\Services\User\UserService;
 use Exception;
 
 class AuthController extends BaseController{
     private $auth_service;
+    private $user_service;
 
     public function __construct()
     {
         $this->auth_service = new AuthService();
+        $this->user_service = new UserService();
     }
 
     public function showLoginPage(){
@@ -81,6 +84,7 @@ class AuthController extends BaseController{
                 $success = $this->auth_service->login($_POST['email'] ?? '', $_POST['password'] ?? '');
                 if($success === true){
                     $_SESSION['is_logged_in'] = true;
+                    $_SESSION['user_id'] = $this->user_service->userId($_POST['email'])['id'];
                     header("Location: /genealogy-dashboard?success=1");
                     exit; 
                 }else{

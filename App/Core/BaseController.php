@@ -25,7 +25,7 @@ class BaseController
  */
     public function ensureLoggedIn(): bool
     {
-        $is_logged_in = $_SESSION['user_details']['is_logged_in']; //gets the user logged in state
+        $is_logged_in = $_SESSION['is_logged_in']; //gets the user logged in state
 
         if($is_logged_in !== 1 || empty($is_logged_in)){
             $_SESSION['error'] = "Something went wrong. You're not logged in. Access denied!!!";

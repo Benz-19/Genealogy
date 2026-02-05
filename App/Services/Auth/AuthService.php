@@ -30,7 +30,7 @@ class AuthService implements AuthServiceInterface {
             $user = new UserService();
             $is_user = $user->isUser($data['email']);
 
-            if($is_user == true || $is_user !== null){
+            if($is_user === true){
                 throw new Exception("User already exists.");                
             }
             // Validate if the code exists

@@ -11,4 +11,7 @@ CREATE TABLE genealogy_users (
 
 
 -- test
--- insert into genealogy_users (username, email) values ('john', 'john@gmail.com')
+INSERT INTO genealogy_users (username, email, referral_code, referrer_id) VALUES 
+('Alex', 'alex@test.com', 'REF-A111', NULL),
+('Garry', 'garry@test.com', 'REF-B222', 1),
+('Charles', 'charles@test.com', 'REF-C333', 2);
